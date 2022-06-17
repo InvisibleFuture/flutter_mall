@@ -147,24 +147,26 @@ class _TabMinePageState extends State<TabMinePage> {
                 children: [
                   Text(AppStrings.MINE_ORDER, style: FMTextStyle.color_333333_size_42),
                   Expanded(
-                      child: Container(
-                          alignment: Alignment.centerRight,
-                          child: InkWell(
-                            splashColor: AppColors.COLOR_FFFFFF,
-                            highlightColor: AppColors.COLOR_FFFFFF,
-                            onTap: () => _goOrderPage(0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(AppStrings.CHECK_ALL_ORDER, style: FMTextStyle.color_999999_size_36),
-                                Image.asset(
-                                  AppImages.ARROW_RIGHT,
-                                  width: ScreenUtil().setWidth(AppDimens.DIMENS_30),
-                                  height: ScreenUtil().setWidth(AppDimens.DIMENS_30),
-                                ),
-                              ],
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        splashColor: AppColors.COLOR_FFFFFF,
+                        highlightColor: AppColors.COLOR_FFFFFF,
+                        onTap: () => _goOrderPage(0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(AppStrings.CHECK_ALL_ORDER, style: FMTextStyle.color_999999_size_36),
+                            Image.asset(
+                              AppImages.ARROW_RIGHT,
+                              width: ScreenUtil().setWidth(AppDimens.DIMENS_30),
+                              height: ScreenUtil().setWidth(AppDimens.DIMENS_30),
                             ),
-                          )))
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

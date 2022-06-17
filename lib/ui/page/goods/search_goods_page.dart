@@ -40,27 +40,28 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => _searchGoodsViewModel,
-        child: Selector<SearchGoodsViewModel, List<GoodsEntity>>(
-          builder: (context, provider, child) {
-            if (_searchGoodsViewModel.isLoadMore) {
-              _pageIndex++;
-            }
-            RefreshStateUtil.getInstance().stopRefreshOrLoadMore(_refreshController);
-            return Scaffold(
-              appBar: AppBar(
-                title: _searchWidget(),
-                centerTitle: true,
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(80.0),
-                  child: _conditionWidget(),
-                ),
+      create: (_) => _searchGoodsViewModel,
+      child: Selector<SearchGoodsViewModel, List<GoodsEntity>>(
+        builder: (context, provider, child) {
+          if (_searchGoodsViewModel.isLoadMore) {
+            _pageIndex++;
+          }
+          RefreshStateUtil.getInstance().stopRefreshOrLoadMore(_refreshController);
+          return Scaffold(
+            appBar: AppBar(
+              title: _searchWidget(),
+              centerTitle: true,
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(80.0),
+                child: _conditionWidget(),
               ),
-              body: _contentWidget(),
-            );
-          },
-          selector: (context, provider) => provider.goods,
-        ));
+            ),
+            body: _contentWidget(),
+          );
+        },
+        selector: (context, provider) => provider.goods,
+      ),
+    );
   }
 
   Widget _searchWidget() {
