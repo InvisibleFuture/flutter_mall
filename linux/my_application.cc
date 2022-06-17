@@ -47,7 +47,9 @@ static void my_application_activate(GApplication* application) {
     gtk_window_set_title(window, "flutter_mall");
   }
 
-  gtk_window_set_default_size(window, 1280, 720);
+  gtk_window_set_decorated(window, FALSE); // 关闭窗口边框
+  gtk_window_set_deletable(window, FALSE); // 禁用关闭按钮
+  gtk_window_set_default_size(window, 562, 1218);
   gtk_widget_show(GTK_WIDGET(window));
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();
