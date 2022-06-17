@@ -20,19 +20,16 @@ class TabHomeGoodsCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(
-            top: ScreenUtil().setHeight(AppDimens.DIMENS_30),
-            bottom: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
+        padding: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_30), bottom: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
         color: AppColors.COLOR_FFFFFF,
         child: GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           //禁止滚动
           shrinkWrap: true,
-
           //Vertical viewport was given unbounded height.  Column 中且套GridView、ListView的问题
           itemCount: _homeModelChannel.length,
           itemBuilder: (BuildContext context, int index) {
-            //  return _getGridViewItem(categoryList[index]);
+            // return _getGridViewItem(categoryList[index]);
             return _getGridViewItem(context, _homeModelChannel[index]);
           },
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -53,16 +50,11 @@ class TabHomeGoodsCategory extends StatelessWidget {
         onTap: () => _goCategoryView(context, channel),
         child: Column(
           children: <Widget>[
-            CachedImageView(ScreenUtil().setWidth(AppDimens.DIMENS_120),
-                ScreenUtil().setWidth(AppDimens.DIMENS_120), channel.iconUrl),
+            CachedImageView(ScreenUtil().setWidth(AppDimens.DIMENS_120), ScreenUtil().setWidth(AppDimens.DIMENS_120), channel.iconUrl),
             Padding(
-              padding: EdgeInsets.only(
-                  top: ScreenUtil().setWidth(AppDimens.DIMENS_10)),
+              padding: EdgeInsets.only(top: ScreenUtil().setWidth(AppDimens.DIMENS_10)),
+              child: Text(channel.name, style: FMTextStyle.color_333333_size_42),
             ),
-            Text(
-              channel.name,
-              style: FMTextStyle.color_333333_size_42,
-            )
           ],
         ),
       ),
