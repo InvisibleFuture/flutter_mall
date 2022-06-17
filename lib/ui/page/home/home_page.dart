@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mall/constant/app_colors.dart';
 import 'package:mall/constant/app_strings.dart';
 import 'package:mall/event/tab_select_event.dart';
 import 'package:mall/ui/page/home/tab_cart_page.dart';
@@ -16,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  List<Widget> _list = List();
+  List<Widget> _list = [];
 
   @override
   void initState() {
@@ -33,21 +32,6 @@ class _HomePageState extends State<HomePage> {
       ..add(TabCategoryPage())
       ..add(TabCartPage())
       ..add(TabMinePage());
-  }
-
-  void _onItemTapped(int index) {
-    if (index == 2 || index == 3) {
-      SharedPreferencesUtil.getInstance().getString(AppStrings.TOKEN).then((value) {
-        if (value == null) {
-          NavigatorUtil.goLogin(context);
-          return;
-        }
-        _changeIndex(index);
-      });
-    } else {
-      //防止点击当前BottomNavigationBarItem rebuild
-      _changeIndex(index);
-    }
   }
 
   _changeIndex(int index) {
@@ -81,14 +65,27 @@ class _HomePageState extends State<HomePage> {
             label: AppStrings.SHOP_CAR,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.account_box),
             label: AppStrings.MINE,
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.COLOR_FF5722,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+        selectedItemColor: Colors.pink,
+        unselectedItemColor: Colors.black87,
+        onTap: (int index) {
+          if (index == 2 || index == 3) {
+            SharedPreferencesUtil.getInstance().getString(AppStrings.TOKEN).then((value) {
+              if (value == null) {
+                NavigatorUtil.goLogin(context);
+                return;
+              }
+              _changeIndex(index);
+            });
+          } else {
+            //防止点击当前BottomNavigationBarItem rebuild
+            _changeIndex(index);
+          }
+        },
       ),
     );
   }

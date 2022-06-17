@@ -22,15 +22,9 @@ class TabHomeCoupon extends StatelessWidget {
         : Column(
             children: [
               Container(
-                margin: EdgeInsets.only(
-                    left: ScreenUtil().setWidth(AppDimens.DIMENS_30),
-                    top: ScreenUtil().setHeight(AppDimens.DIMENS_30),
-                    bottom: ScreenUtil().setHeight(AppDimens.DIMENS_10)),
+                margin: EdgeInsets.only(left: ScreenUtil().setWidth(AppDimens.DIMENS_30), top: ScreenUtil().setHeight(AppDimens.DIMENS_30), bottom: ScreenUtil().setHeight(AppDimens.DIMENS_10)),
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  AppStrings.COUPON_AREA,
-                  style: FMTextStyle.color_333333_size_42_bold
-                ),
+                child: Text(AppStrings.COUPON_AREA, style: FMTextStyle.color_333333_size_42_bold),
               ),
               ListView.builder(
                   padding: EdgeInsets.all(0),
@@ -46,66 +40,65 @@ class TabHomeCoupon extends StatelessWidget {
           );
   }
 
-  Widget _getCouponView(
-      HomeModelCouponlist couponEntity, BuildContext context) {
+  Widget _getCouponView(HomeModelCouponlist couponEntity, BuildContext context) {
     return Container(
-    
-        child: InkWell(
-          onTap: () => _receiveCoupon(couponEntity.id, context),
-          child: Card(
-            margin: EdgeInsets.all(ScreenUtil().setWidth(AppDimens.DIMENS_30)),
-            child:Container(
-              margin: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_20),bottom: ScreenUtil().setHeight(AppDimens.DIMENS_20)),
-              child:  Row(
-                children: <Widget>[
-                  Container(
+      child: InkWell(
+        onTap: () => _receiveCoupon(couponEntity.id, context),
+        child: Card(
+          color: Colors.pink,
+          margin: EdgeInsets.all(ScreenUtil().setWidth(AppDimens.DIMENS_30)),
+          child: Container(
+            margin: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_20), bottom: ScreenUtil().setHeight(AppDimens.DIMENS_20)),
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
                     alignment: Alignment.center,
-                    width: ScreenUtil().setWidth(AppDimens.DIMENS_180),
                     child: Text(
-                        "${couponEntity.discount}${AppStrings.MONEY_UNIT}",
-                        style: FMTextStyle.color_ff5722_size_60
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                              couponEntity.name,
-                              style:FMTextStyle.color_333333_size_42
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: ScreenUtil().setWidth(AppDimens.DIMENS_20)),
-                          ),
-                          Text(
-                              "${AppStrings.FULL}${couponEntity.min}${AppStrings.USE}",
-                              style:FMTextStyle.color_999999_size_42
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: ScreenUtil().setWidth(AppDimens.DIMENS_20)),
-                          ),
-                          Text(
-                              "${AppStrings.VALIDITY}${couponEntity.days}${AppStrings.DAY}",
-                              style: FMTextStyle.color_999999_size_42
-                          ),
-                        ],
+                      "${couponEntity.discount}${AppStrings.MONEY_UNIT}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 32.0,
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(couponEntity.name, style: TextStyle(color: Colors.black54, fontSize: 20.0)),
+                      Padding(
+                        padding: EdgeInsets.only(top: ScreenUtil().setWidth(AppDimens.DIMENS_20)),
+                      ),
+                      Text(
+                        "${AppStrings.FULL}${couponEntity.min}${AppStrings.USE}",
+                        style: TextStyle(fontSize: 20, color: Colors.white70),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: ScreenUtil().setWidth(AppDimens.DIMENS_20)),
+                      ),
+                      Text(
+                        "${AppStrings.VALIDITY}${couponEntity.days}${AppStrings.DAY}",
+                        style: TextStyle(
+                          color: Colors.white60,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   _receiveCoupon(int id, BuildContext context) {
-    SharedPreferencesUtil.getInstance()
-        .getString(AppStrings.TOKEN)
-        .then((response) {
+    SharedPreferencesUtil.getInstance().getString(AppStrings.TOKEN).then((response) {
       if (response != null) {
         _tabHomeViewModel.receiveCoupon(id).then((response) {
           if (response) {
