@@ -40,8 +40,7 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<FillInOrderViewModel>(
       create: (context) => _fillInOrderViewModel,
-      child: Selector<FillInOrderViewModel, FillInOrderEntity>(
-          selector: (BuildContext context, FillInOrderViewModel model) {
+      child: Selector<FillInOrderViewModel, FillInOrderEntity>(selector: (BuildContext context, FillInOrderViewModel model) {
         return model.fillInOrderEntity;
       }, builder: (context, data, child) {
         return showWidget(_fillInOrderViewModel);
@@ -53,8 +52,7 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
     if (fillInOrderViewModel.pageState == PageState.hasData) {
       return _dataView(fillInOrderViewModel);
     }
-    return ViewModelStateWidget.stateWidgetWithCallBack(
-        fillInOrderViewModel, (){});
+    return ViewModelStateWidget.stateWidgetWithCallBack(fillInOrderViewModel, () {});
   }
 
   Widget _dataView(FillInOrderViewModel model) {
@@ -66,30 +64,29 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
         body: _contentView(model),
         bottomNavigationBar: BottomAppBar(
             child: Container(
-          margin:
-              EdgeInsets.only(left: ScreenUtil().setWidth(AppDimens.DIMENS_30)),
+          margin: EdgeInsets.only(left: ScreenUtil().setWidth(AppDimens.DIMENS_30)),
           height: ScreenUtil().setHeight(AppDimens.DIMENS_150),
           child: Row(
             children: <Widget>[
               Expanded(
                   child: Text(
-                      "${AppStrings.ACTUAL_PAY}${model.fillInOrderEntity.orderTotalPrice}",style: FMTextStyle.color_333333_size_42,)),
-             Container(
-                  alignment: Alignment.center,
-                  width: ScreenUtil().setWidth(AppDimens.DIMENS_300),
-                  height: double.infinity,
-                  child: RaisedButton(
-                    color: AppColors.COLOR_FF5722,
-                    onPressed:() => _submitOrder(),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(AppDimens.DIMENS_30))),
-                    child: Text(
-                      AppStrings.PAY,
-                      style: FMTextStyle.color_ffffff_size_42,
-                    ),
+                "${AppStrings.ACTUAL_PAY}${model.fillInOrderEntity.orderTotalPrice}",
+                style: FMTextStyle.color_333333_size_42,
+              )),
+              Container(
+                alignment: Alignment.center,
+                width: ScreenUtil().setWidth(AppDimens.DIMENS_300),
+                height: double.infinity,
+                child: RaisedButton(
+                  color: AppColors.COLOR_FF5722,
+                  onPressed: () => _submitOrder(),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(AppDimens.DIMENS_30))),
+                  child: Text(
+                    AppStrings.PAY,
+                    style: FMTextStyle.color_ffffff_size_42,
                   ),
                 ),
+              ),
             ],
           ),
         )));
@@ -110,14 +107,11 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
             DividerLineView(height: AppDimens.DIMENS_20),
             _couponWidget(model),
             DividerLineView(),
-            ItemTextView(AppStrings.GOODS_TOTAL,
-                "${AppStrings.DOLLAR}${model.fillInOrderEntity.goodsTotalPrice}"),
+            ItemTextView(AppStrings.GOODS_TOTAL, "${AppStrings.DOLLAR}${model.fillInOrderEntity.goodsTotalPrice}"),
             DividerLineView(),
-            ItemTextView(AppStrings.FREIGHT,
-                "${AppStrings.DOLLAR}${model.fillInOrderEntity.freightPrice}"),
+            ItemTextView(AppStrings.FREIGHT, "${AppStrings.DOLLAR}${model.fillInOrderEntity.freightPrice}"),
             DividerLineView(),
-            ItemTextView(AppStrings.COUPON_TOTAL,
-                "${AppStrings.DOLLAR}${model.fillInOrderEntity.couponPrice}"),
+            ItemTextView(AppStrings.COUPON_TOTAL, "${AppStrings.DOLLAR}${model.fillInOrderEntity.couponPrice}"),
           ],
         ),
       ),
@@ -138,19 +132,13 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
   Widget _goodsItem(FillInOrderCheckedgoodslist checkedGoods) {
     return Container(
       color: AppColors.COLOR_FFFFFF,
-      padding: EdgeInsets.only(
-          left: ScreenUtil().setWidth(AppDimens.DIMENS_30),
-          right: ScreenUtil().setWidth(AppDimens.DIMENS_30),
-          top: ScreenUtil().setHeight(AppDimens.DIMENS_20),
-          bottom: ScreenUtil().setHeight(AppDimens.DIMENS_20)),
+      padding: EdgeInsets.only(left: ScreenUtil().setWidth(AppDimens.DIMENS_30), right: ScreenUtil().setWidth(AppDimens.DIMENS_30), top: ScreenUtil().setHeight(AppDimens.DIMENS_20), bottom: ScreenUtil().setHeight(AppDimens.DIMENS_20)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          CachedImageView(ScreenUtil().setWidth(AppDimens.DIMENS_240),
-              ScreenUtil().setWidth(AppDimens.DIMENS_240), checkedGoods.picUrl),
+          CachedImageView(ScreenUtil().setWidth(AppDimens.DIMENS_240), ScreenUtil().setWidth(AppDimens.DIMENS_240), checkedGoods.picUrl),
           Padding(
-            padding: EdgeInsets.only(
-                left: ScreenUtil().setWidth(AppDimens.DIMENS_20)),
+            padding: EdgeInsets.only(left: ScreenUtil().setWidth(AppDimens.DIMENS_20)),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -160,16 +148,12 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
                 checkedGoods.goodsName,
                 style: FMTextStyle.color_333333_size_42,
               ),
-              Padding(
-                  padding: EdgeInsets.only(
-                      top: ScreenUtil().setHeight(AppDimens.DIMENS_10))),
+              Padding(padding: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_10))),
               Text(
                 checkedGoods.specifications[0],
-                style:  FMTextStyle.color_999999_size_42,
+                style: FMTextStyle.color_999999_size_42,
               ),
-              Padding(
-                  padding: EdgeInsets.only(
-                      top: ScreenUtil().setHeight(AppDimens.DIMENS_20))),
+              Padding(padding: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_20))),
               Text(
                 "${AppStrings.DOLLAR}${checkedGoods.price}",
                 style: FMTextStyle.color_ff5722_size_42,
@@ -190,8 +174,7 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
   Widget _addressWidget(FillInOrderViewModel model) {
     return ChangeNotifierProvider.value(
       value: _fillInOrderViewModel,
-      child: Selector<FillInOrderViewModel, FillInOrderCheckedaddress>(builder:
-          (context, data, child) {
+      child: Selector<FillInOrderViewModel, FillInOrderCheckedaddress>(builder: (context, data, child) {
         return Container(
           color: AppColors.COLOR_FFFFFF,
           height: ScreenUtil().setHeight(AppDimens.DIMENS_240),
@@ -200,8 +183,7 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
           child: model.fillInOrderCheckAddress.id != 0
               ? InkWell(
                   onTap: () {
-                    NavigatorUtil.goAddress(context, 1)
-                        .then((value) => model.updateAddress(value));
+                    NavigatorUtil.goAddress(context, 1).then((value) => model.updateAddress(value));
                   },
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -214,39 +196,20 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                model.fillInOrderCheckAddress.name,
-                                style:FMTextStyle.color_333333_size_42
-                              ),
+                              Text(model.fillInOrderCheckAddress.name, style: FMTextStyle.color_333333_size_42),
                               Padding(
-                                padding: EdgeInsets.only(
-                                    left: ScreenUtil()
-                                        .setHeight(AppDimens.DIMENS_30)),
+                                padding: EdgeInsets.only(left: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
                               ),
-                              Text(
-                                model.fillInOrderCheckAddress.tel,
-                                style: FMTextStyle.color_333333_size_42
-                              ),
+                              Text(model.fillInOrderCheckAddress.tel, style: FMTextStyle.color_333333_size_42),
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(
-                                top: ScreenUtil()
-                                    .setHeight(AppDimens.DIMENS_20)),
+                            padding: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_20)),
                           ),
-                          Text(
-                            model.fillInOrderCheckAddress.province +
-                                model.fillInOrderCheckAddress.city +
-                                model.fillInOrderCheckAddress.county +
-                                model.fillInOrderCheckAddress.addressDetail,
-                            style: FMTextStyle.color_333333_size_42
-                          ),
+                          Text(model.fillInOrderCheckAddress.province + model.fillInOrderCheckAddress.city + model.fillInOrderCheckAddress.county + model.fillInOrderCheckAddress.addressDetail, style: FMTextStyle.color_333333_size_42),
                         ],
                       ),
-                      Expanded(
-                          child: Container(
-                              alignment: Alignment.centerRight,
-                              child: RightArrow()))
+                      Expanded(child: Container(alignment: Alignment.centerRight, child: RightArrow()))
                     ],
                   ),
                 )
@@ -259,20 +222,13 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        AppStrings.PLEASE_SELECT_ADDRESS,
-                        style: FMTextStyle.color_999999_size_42
-                      ),
-                      Expanded(
-                          child: Container(
-                              alignment: Alignment.centerRight,
-                              child: RightArrow()))
+                      Text(AppStrings.PLEASE_SELECT_ADDRESS, style: FMTextStyle.color_999999_size_42),
+                      Expanded(child: Container(alignment: Alignment.centerRight, child: RightArrow()))
                     ],
                   ),
                 ),
         );
-      }, selector:
-          (BuildContext context, FillInOrderViewModel fillInOrderViewModel) {
+      }, selector: (BuildContext context, FillInOrderViewModel fillInOrderViewModel) {
         return fillInOrderViewModel.fillInOrderCheckAddress;
       }),
     );
@@ -284,9 +240,7 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
       color: AppColors.COLOR_FFFFFF,
       width: double.infinity,
       height: ScreenUtil().setHeight(AppDimens.DIMENS_120),
-      padding: EdgeInsets.only(
-          left: ScreenUtil().setWidth(AppDimens.DIMENS_30),
-          right: ScreenUtil().setWidth(AppDimens.DIMENS_30)),
+      padding: EdgeInsets.only(left: ScreenUtil().setWidth(AppDimens.DIMENS_30), right: ScreenUtil().setWidth(AppDimens.DIMENS_30)),
       child: Row(
         children: <Widget>[
           Image.asset(
@@ -294,27 +248,15 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
             width: ScreenUtil().setWidth(AppDimens.DIMENS_120),
             height: ScreenUtil().setHeight(AppDimens.DIMENS_60),
           ),
-          Text(
-            AppStrings.COUPON,
-            style: FMTextStyle.color_333333_size_42
-          ),
+          Text(AppStrings.COUPON, style: FMTextStyle.color_333333_size_42),
           Expanded(
               child: Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                model.fillInOrderEntity.availableCouponLength == 0
-                    ? Text(
-                        AppStrings.NOT_AVAILABLE_COUPON,
-                        style: FMTextStyle.color_999999_size_42
-                      )
-                    : Text(
-                        "${model.fillInOrderEntity.couponPrice}${AppStrings.MONEY_UNIT}",
-                        style: FMTextStyle.color_333333_size_42
-                      ),
+                model.fillInOrderEntity.availableCouponLength == 0 ? Text(AppStrings.NOT_AVAILABLE_COUPON, style: FMTextStyle.color_999999_size_42) : Text("${model.fillInOrderEntity.couponPrice}${AppStrings.MONEY_UNIT}", style: FMTextStyle.color_333333_size_42),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: ScreenUtil().setWidth(AppDimens.DIMENS_20)),
+                  padding: EdgeInsets.only(left: ScreenUtil().setWidth(AppDimens.DIMENS_20)),
                 ),
                 RightArrow()
               ],
@@ -336,15 +278,11 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            AppStrings.REMARK,
-            style: FMTextStyle.color_333333_size_42
-          ),
+          Text(AppStrings.REMARK, style: FMTextStyle.color_333333_size_42),
           Expanded(
               child: Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(
-                left: ScreenUtil().setWidth(AppDimens.DIMENS_60)),
+            margin: EdgeInsets.only(left: ScreenUtil().setWidth(AppDimens.DIMENS_60)),
             height: double.infinity,
             child: TextField(
               maxLines: 4,
@@ -352,12 +290,9 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
                 contentPadding: EdgeInsets.zero,
                 hintText: AppStrings.REMARK_HINT,
                 border: OutlineInputBorder(borderSide: BorderSide.none),
-                hintStyle:FMTextStyle.color_999999_size_42,
-                hasFloatingPlaceholder: false,
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.white,
-                        width: ScreenUtil().setHeight(AppDimens.DIMENS_1))),
+                hintStyle: FMTextStyle.color_999999_size_42,
+                //hasFloatingPlaceholder: false,
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white, width: ScreenUtil().setHeight(AppDimens.DIMENS_1))),
               ),
               style: FMTextStyle.color_333333_size_42,
               controller: _remarkController,
@@ -373,13 +308,7 @@ class _FillInOrderPageState extends State<FillInOrderPage> {
       ToastUtil.showToast(AppStrings.PLEASE_SELECT_ADDRESS);
       return;
     }
-    _fillInOrderViewModel
-        .submitOrder(
-            _fillInOrderViewModel.fillInOrderEntity.cartId,
-            _fillInOrderViewModel.fillInOrderCheckAddress.id,
-            _remarkController.value.toString(),
-            _fillInOrderViewModel.fillInOrderEntity.couponId)
-        .then((value) {
+    _fillInOrderViewModel.submitOrder(_fillInOrderViewModel.fillInOrderEntity.cartId, _fillInOrderViewModel.fillInOrderCheckAddress.id, _remarkController.value.toString(), _fillInOrderViewModel.fillInOrderEntity.couponId).then((value) {
       if (value) {
         //https://www.jianshu.com/p/9d858596a30a
         /* Navigator.of(context).popUntil(

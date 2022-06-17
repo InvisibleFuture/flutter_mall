@@ -26,7 +26,6 @@ void main() async {
       ChangeNotifierProvider<CartViewModel>.value(value: _cartViewModel)
     ],
     child: DevicePreview(
-//      enabled: !kReleaseMode,
       enabled: false,
       builder: (context) => MallApp(),
     ),
@@ -44,18 +43,13 @@ class MallApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: DevicePreview.of(context).locale,
-      // <--- /!\ Add the locale
+      locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
-      // <--- /!\ Add the builder
       title: AppStrings.APP_NAME,
       navigatorKey: Application.navigatorKey,
       debugShowCheckedModeBanner: false,
       onGenerateRoute: Application.router.generator,
-      theme: ThemeData(
-          primarySwatch: AppColors.themeColor,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          scaffoldBackgroundColor: AppColors.COLOR_F8F8F8),
+      theme: ThemeData(primarySwatch: AppColors.themeColor, visualDensity: VisualDensity.adaptivePlatformDensity, scaffoldBackgroundColor: AppColors.COLOR_F8F8F8),
     );
   }
 }
