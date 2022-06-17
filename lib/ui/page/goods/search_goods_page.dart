@@ -46,14 +46,13 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
             if (_searchGoodsViewModel.isLoadMore) {
               _pageIndex++;
             }
-            RefreshStateUtil.getInstance()
-                .stopRefreshOrLoadMore(_refreshController);
+            RefreshStateUtil.getInstance().stopRefreshOrLoadMore(_refreshController);
             return Scaffold(
               appBar: AppBar(
                 title: _searchWidget(),
                 centerTitle: true,
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(48.0),
+                  preferredSize: Size.fromHeight(80.0),
                   child: _conditionWidget(),
                 ),
               ),
@@ -66,42 +65,40 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
 
   Widget _searchWidget() {
     return Container(
-      height: AppBar().preferredSize.height,
-      padding: EdgeInsets.only(
-          top: ScreenUtil().setHeight(AppDimens.DIMENS_30),
-          bottom: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
+      //height: AppBar().preferredSize.height,
+      padding: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_30), bottom: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
       alignment: Alignment.center,
       color: AppColors.COLOR_FF5722,
       child: Container(
-          margin: EdgeInsets.only(
-              right: ScreenUtil().setWidth(AppDimens.DIMENS_100)),
-          decoration: BoxDecoration(
-            color: AppColors.COLOR_FFFFFF,
-            border: Border.all(
-                color: AppColors.COLOR_FFFFFF,
-                width: ScreenUtil().setWidth(AppDimens.DIMENS_1)),
-            borderRadius: BorderRadius.circular(
-                ScreenUtil().setWidth(AppBar().preferredSize.height / 2)),
-          ),
-          child: TextField(
-            onEditingComplete: _sort,
-            controller: _keyController,
-            textInputAction: TextInputAction.search,
-            focusNode: _focusNode,
-            style: FMTextStyle.color_333333_size_42,
-            decoration: InputDecoration(
-              prefixIcon: Icon(
+        margin: EdgeInsets.only(right: ScreenUtil().setWidth(AppDimens.DIMENS_100)),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: AppColors.COLOR_FFFFFF, width: ScreenUtil().setWidth(AppDimens.DIMENS_1)),
+          borderRadius: BorderRadius.circular(80), // ScreenUtil().setWidth(AppBar().preferredSize.height / 2)
+        ),
+        child: TextField(
+          onEditingComplete: _sort,
+          controller: _keyController,
+          textInputAction: TextInputAction.search,
+          focusNode: _focusNode,
+          style: FMTextStyle.color_333333_size_42,
+          decoration: InputDecoration(
+            prefixIcon: Padding(
+              padding: EdgeInsets.only(left: 8, right: 8),
+              child: Icon(
                 Icons.search,
-                size: ScreenUtil().setWidth(AppDimens.DIMENS_80),
+                size: ScreenUtil().setWidth(60),
                 color: AppColors.COLOR_FF5722,
               ),
-              hintText: AppStrings.GOODS_SEARCH_HINT,
-              hintStyle: FMTextStyle.color_999999_size_42,
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
             ),
-          )),
+            hintText: AppStrings.GOODS_SEARCH_HINT,
+            hintStyle: FMTextStyle.color_999999_size_42,
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -127,8 +124,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
         children: [
           Expanded(
             flex: 1,
-            child: Selector<SearchGoodsViewModel, bool>(
-                builder: (context, data, child) {
+            child: Selector<SearchGoodsViewModel, bool>(builder: (context, data, child) {
               return GestureDetector(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -138,9 +134,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
                       style: FMTextStyle.color_333333_size_42,
                     ),
                     Icon(
-                      _searchGoodsViewModel.publishTimeConditionArrowUp
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
+                      _searchGoodsViewModel.publishTimeConditionArrowUp ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                       color: AppColors.COLOR_999999,
                     ),
                   ],
@@ -153,8 +147,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
           ),
           Expanded(
             flex: 1,
-            child: Selector<SearchGoodsViewModel, bool>(
-                builder: (context, data, child) {
+            child: Selector<SearchGoodsViewModel, bool>(builder: (context, data, child) {
               return GestureDetector(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -164,9 +157,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
                       style: FMTextStyle.color_333333_size_42,
                     ),
                     Icon(
-                      _searchGoodsViewModel.priceConditionArrowUp
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
+                      _searchGoodsViewModel.priceConditionArrowUp ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                       color: AppColors.COLOR_999999,
                     ),
                   ],
@@ -202,8 +193,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
     if (searchGoodsViewModel.pageState == PageState.hasData) {
       return _goodsWidget();
     }
-    return ViewModelStateWidget.stateWidgetWithCallBack(
-        searchGoodsViewModel, _onRefresh);
+    return ViewModelStateWidget.stateWidgetWithCallBack(searchGoodsViewModel, _onRefresh);
   }
 
   _showPublishTimeDialog() {
@@ -211,10 +201,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
     _searchGoodsViewModel.setPublishTimeCondition();
     showModalBottomSheet(
         context: context,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(AppDimens.DIMENS_20),
-                topRight: Radius.circular(AppDimens.DIMENS_20))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(AppDimens.DIMENS_20), topRight: Radius.circular(AppDimens.DIMENS_20))),
         builder: (BuildContext context) {
           return Container(
             height: ScreenUtil().setHeight(AppDimens.DIMENS_300),
@@ -223,8 +210,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.only(
-                        top: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
+                    margin: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
                     alignment: Alignment.center,
                     height: ScreenUtil().setHeight(AppDimens.DIMENS_120),
                     child: GestureDetector(
@@ -234,12 +220,10 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
 //                        _onRefresh();
                         Navigator.pop(context);
                       },
-                      child: Text(AppStrings.PUBLISH_TIME_ASC,
-                          style: FMTextStyle.color_333333_size_42),
+                      child: Text(AppStrings.PUBLISH_TIME_ASC, style: FMTextStyle.color_333333_size_42),
                     )),
                 Container(
-                    margin: EdgeInsets.only(
-                        bottom: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
+                    margin: EdgeInsets.only(bottom: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
                     alignment: Alignment.center,
                     height: ScreenUtil().setHeight(AppDimens.DIMENS_120),
                     child: GestureDetector(
@@ -249,8 +233,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
 //                        _onRefresh();
                         Navigator.pop(context);
                       },
-                      child: Text(AppStrings.PUBLISH_TIME_DESC,
-                          style: FMTextStyle.color_333333_size_42),
+                      child: Text(AppStrings.PUBLISH_TIME_DESC, style: FMTextStyle.color_333333_size_42),
                     ))
               ],
             ),
@@ -265,10 +248,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
     _searchGoodsViewModel.setPriceCondition();
     showModalBottomSheet(
         context: context,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(AppDimens.DIMENS_20),
-                topRight: Radius.circular(AppDimens.DIMENS_20))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(AppDimens.DIMENS_20), topRight: Radius.circular(AppDimens.DIMENS_20))),
         builder: (BuildContext context) {
           return Container(
             height: ScreenUtil().setHeight(AppDimens.DIMENS_300),
@@ -277,8 +257,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    margin: EdgeInsets.only(
-                        top: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
+                    margin: EdgeInsets.only(top: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
                     alignment: Alignment.center,
                     height: ScreenUtil().setHeight(AppDimens.DIMENS_120),
                     child: GestureDetector(
@@ -288,12 +267,10 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
                         _onRefresh();
                         Navigator.pop(context);
                       },
-                      child: Text(AppStrings.PRICE_ASC,
-                          style: FMTextStyle.color_333333_size_42),
+                      child: Text(AppStrings.PRICE_ASC, style: FMTextStyle.color_333333_size_42),
                     )),
                 Container(
-                    margin: EdgeInsets.only(
-                        bottom: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
+                    margin: EdgeInsets.only(bottom: ScreenUtil().setHeight(AppDimens.DIMENS_30)),
                     alignment: Alignment.center,
                     height: ScreenUtil().setHeight(AppDimens.DIMENS_120),
                     child: GestureDetector(
@@ -303,8 +280,7 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
                         _onRefresh();
                         Navigator.pop(context);
                       },
-                      child: Text(AppStrings.PRICE_DESC,
-                          style: FMTextStyle.color_333333_size_42),
+                      child: Text(AppStrings.PRICE_DESC, style: FMTextStyle.color_333333_size_42),
                     ))
               ],
             ),
@@ -319,33 +295,25 @@ class _SearchGoodsPageState extends State<SearchGoodsPage> {
         shrinkWrap: true,
         padding: EdgeInsets.all(0),
         itemCount: _searchGoodsViewModel.goods.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 0.9),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.9),
         itemBuilder: (BuildContext context, int index) {
-          return GoodsWidget(
-              _searchGoodsViewModel.goods[index], (value) {});
+          return GoodsWidget(_searchGoodsViewModel.goods[index], (value) {});
         });
   }
 
-  _onRefresh()  {
+  _onRefresh() {
     _pageIndex = 1;
-    _searchGoodsViewModel.searchGoods(_keyController.text.toString(),
-        _pageIndex, _pageSize, _sortName, _orderType);
+    _searchGoodsViewModel.searchGoods(_keyController.text.toString(), _pageIndex, _pageSize, _sortName, _orderType);
   }
 
   _onLoadMore() async {
-    _searchGoodsViewModel.searchGoods(_keyController.text.toString(),
-        _pageIndex, _pageSize, _sortName, _orderType);
+    _searchGoodsViewModel.searchGoods(_keyController.text.toString(), _pageIndex, _pageSize, _sortName, _orderType);
   }
 
   _sort() {
     _focusNode.unfocus();
     _pageIndex = 1;
     _showDialog(context);
-    _searchGoodsViewModel
-        .searchGoods(_keyController.text.toString(), _pageIndex, _pageSize,
-            _sortName, _orderType)
-        .then((value) => Navigator.pop(context));
+    _searchGoodsViewModel.searchGoods(_keyController.text.toString(), _pageIndex, _pageSize, _sortName, _orderType).then((value) => Navigator.pop(context));
   }
 }
-
