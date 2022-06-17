@@ -20,8 +20,7 @@ class TabHomePage extends StatefulWidget {
   _TabHomePageState createState() => _TabHomePageState();
 }
 
-class _TabHomePageState extends State<TabHomePage>
-    with SingleTickerProviderStateMixin {
+class _TabHomePageState extends State<TabHomePage> with SingleTickerProviderStateMixin {
   TabHomeViewModel _model = TabHomeViewModel();
   VoidCallback callback;
   RefreshController _refreshController;
@@ -59,7 +58,7 @@ class _TabHomePageState extends State<TabHomePage>
                     backgroundColor: AppColors.COLOR_FF5722,
                   ),
                   controller: _refreshController,
-                  onRefresh: ()=>_onRefresh(),
+                  onRefresh: () => _onRefresh(),
                   child: initView(model)),
             );
           }),
@@ -94,37 +93,33 @@ class _TabHomePageState extends State<TabHomePage>
     if (tabHomeViewModel.pageState == PageState.hasData) {
       return _dataView(tabHomeViewModel);
     }
-    return ViewModelStateWidget.stateWidgetWithCallBack(
-        tabHomeViewModel, _onRefresh);
+    return ViewModelStateWidget.stateWidgetWithCallBack(tabHomeViewModel, _onRefresh);
   }
+
+  ScrollController _controller = new ScrollController();
 
   //数据显示
   Widget _dataView(TabHomeViewModel tabHomeViewModel) {
     return SingleChildScrollView(
-        physics: ClampingScrollPhysics(),
-        child: Column(
-          children: [
-            TabHomeBanner(_model.homeModelEntity.banner),
-            TabHomeGoodsCategory(_model.homeModelEntity.channel),
-            TabHomeCoupon(_model.homeModelEntity.couponList, _model),
-            TabHomeGroupByWidget(_model.homeModelEntity.grouponList),
-            TabHomeGoods(
-                AppStrings.NEW_PRODUCTS, _model.homeModelEntity.newGoodsList),
-            TabHomeGoods(
-                AppStrings.HOT_SALE, _model.homeModelEntity.hotGoodsList),
-            TabHomeGoods(AppStrings.AT_HOME,
-                _model.homeModelEntity.floorGoodsList[0].goodsList),
-            TabHomeGoods(AppStrings.KITCHEN,
-                _model.homeModelEntity.floorGoodsList[1].goodsList),
-            TabHomeGoods(AppStrings.DIET,
-                _model.homeModelEntity.floorGoodsList[2].goodsList),
-            TabHomeGoods(AppStrings.PARTS,
-                _model.homeModelEntity.floorGoodsList[3].goodsList),
-            TabHomeSpecial(
-                AppStrings.SPECIAL, _model.homeModelEntity.topicList),
-            TabHomeBrand(
-                AppStrings.MANUFACTURING, _model.homeModelEntity.brandList)
-          ],
-        ));
+      physics: ClampingScrollPhysics(),
+      controller: _controller,
+      scrollDirection: Axis.vertical,
+      child: Column(
+        children: [
+          TabHomeBanner(_model.homeModelEntity.banner),
+          TabHomeGoodsCategory(_model.homeModelEntity.channel),
+          TabHomeCoupon(_model.homeModelEntity.couponList, _model),
+          TabHomeGroupByWidget(_model.homeModelEntity.grouponList),
+          TabHomeGoods(AppStrings.NEW_PRODUCTS, _model.homeModelEntity.newGoodsList),
+          TabHomeGoods(AppStrings.HOT_SALE, _model.homeModelEntity.hotGoodsList),
+          TabHomeGoods(AppStrings.AT_HOME, _model.homeModelEntity.floorGoodsList[0].goodsList),
+          TabHomeGoods(AppStrings.KITCHEN, _model.homeModelEntity.floorGoodsList[1].goodsList),
+          TabHomeGoods(AppStrings.DIET, _model.homeModelEntity.floorGoodsList[2].goodsList),
+          TabHomeGoods(AppStrings.PARTS, _model.homeModelEntity.floorGoodsList[3].goodsList),
+          TabHomeSpecial(AppStrings.SPECIAL, _model.homeModelEntity.topicList),
+          TabHomeBrand(AppStrings.MANUFACTURING, _model.homeModelEntity.brandList)
+        ],
+      ),
+    );
   }
 }
